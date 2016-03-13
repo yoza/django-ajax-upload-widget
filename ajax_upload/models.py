@@ -6,15 +6,16 @@ from ajax_upload.settings import FILE_FIELD_MAX_LENGTH, UPLOAD_TO_DIRECTORY
 
 class UploadedFile(models.Model):
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
-    file = models.FileField(_('file'), max_length=FILE_FIELD_MAX_LENGTH, upload_to=UPLOAD_TO_DIRECTORY)
+    file = models.FileField(_('file'), max_length=FILE_FIELD_MAX_LENGTH,
+                            upload_to=UPLOAD_TO_DIRECTORY)
 
     class Meta:
         ordering = ('id',)
         verbose_name = _('uploaded file')
         verbose_name_plural = _('uploaded files')
 
-    def __unicode__(self):
-        return unicode(self.file)
+    def __str__(self):
+        return self.file.name
 
     def delete(self, *args, **kwargs):
         super(UploadedFile, self).delete(*args, **kwargs)
